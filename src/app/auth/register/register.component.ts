@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/app.reducer';
 import { UsuarioDTO } from 'src/app/models/usuario.models';
 import { AuthService } from 'src/app/services/auth.service';
 import { MAX_NOMBRE_APELLIDO, MIN_NOMBRE_APELLIDO, MIN_PASSWORD, MIN_USERNAME, PATTERN_ONLYLETTERS } from 'src/app/shared/constants';
+import  * as ui from 'src/app/shared/ui.actions';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,19 +15,29 @@ import Swal from 'sweetalert2';
   templateUrl: './register.component.html',
   styles: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   formulario: FormGroup;
   usuario: UsuarioDTO = new UsuarioDTO();
+  uiSubscription: Subscription;
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
+              private store: Store<AppState>,
               private router: Router) {}
 
   ngOnInit() {
     this.createForm();
+    this.uiSubscription = this.store.select('ui').subscribe(ui => {
+      this.loading = ui.isLoading;
+    }); 
   }
 
+  ngOnDestroy() {
+    this.uiSubscription.unsubscribe();
+  }
+ 
   public createForm() {
     this.formulario = this.fb.group({
       nombre: ['', Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYLETTERS), Validators.min(MIN_NOMBRE_APELLIDO), Validators.max(MAX_NOMBRE_APELLIDO)])],
@@ -45,9 +59,13 @@ export class RegisterComponent implements OnInit {
     this.usuario.apellido = apellido;
     this.usuario.username = nombreUsuario;
     this.usuario.email = email;
+    this.store.dispatch(ui.isLoading())
     this.authService.register(this.usuario).subscribe(data => {
-      console.log(data);
+      this.store.dispatch(ui.stopLoading())
+      Swal.fire('Registro', 'Usuario registrado con exito!', 'success');
+      this.router.navigate(['/login']);
     }, (err) => {
+      this.store.dispatch(ui.stopLoading())
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
