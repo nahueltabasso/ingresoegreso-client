@@ -12,10 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
@@ -29,8 +28,6 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     DashboardComponent,
     IngresoEgresoComponent,
     EstadisticaComponent,
@@ -43,6 +40,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule,
+    AuthModule,
     ChartsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
