@@ -7,14 +7,15 @@
               Especifique el monto y el tipo
             </p>
 
-            <form>
+            <form [formGroup]="formulario" (ngSubmit)="registrar()">
               
               <div class="form-group">
                 <label>Descripción</label>
                 <input type="text" 
                        class="form-control" 
                        placeholder="Descripción"
-                       name="descripcion">
+                       name="descripcion"
+                       formControlName="descripcion">
               </div>
 
               <div class="form-group">
@@ -22,7 +23,8 @@
                   <input type="number" 
                          class="form-control" 
                          placeholder="Monto"
-                         name="monto">
+                         name="monto"
+                         formControlName="monto">
                     <p>
                       Debe de ser un monto positivo
                     </p>
@@ -31,22 +33,22 @@
               <div class="form-group">
                   <label>Tipo</label>
                   <br>
-                  <button type="button" class="btn btn-primary btn-block">Ingreso</button>
-                  <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+                  <button *ngIf="tipo === 'INGRESO'" (click)="tipo = 'EGRESO'" type="button" class="btn btn-primary btn-block">Ingreso</button>
+                  <button *ngIf="tipo === 'EGRESO'" (click)="tipo = 'INGRESO'" type="button" class="btn btn-warning btn-block">Egreso</button>
               </div>
 
               <hr>
-              <button type="button" class="btn btn-success mr-2">
+              <button *ngIf="!loading" type="submit" class="btn btn-success mr-2" [disabled]="formulario.invalid">
                 <i class="fa fa-save"></i>
                 Agregar
               </button>
 
-              <!-- 
-                <button disabled class="btn btn-success mr-2">
+              
+                <button disabled *ngIf="loading" class="btn btn-success mr-2" [disabled]="true">
                   <i class="fa fa-spin fa-sync"></i>
-                  Espere por favor...
+                  Guardando...
                 </button> 
-              -->
+             
               
               <button type="reset" class="btn btn-light">Cancelar</button>
 

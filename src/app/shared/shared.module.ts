@@ -23,6 +23,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatDatepickerModule,
     MatIconModule,
     MatStepperModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterModule
   ],
   exports: [
     FooterComponent,

@@ -10,6 +10,7 @@ import  * as ui from 'src/app/shared/ui.actions';
 import  * as auth from 'src/app/auth/auth.actions';
 import Swal from 'sweetalert2';
 import { LoginDTO, UsuarioLoginDTO } from '../../models/usuario.models';
+import * as ingresoEgresoActions from 'src/app/ingreso-egreso/ingreso-egreso.actions';
 
 @Component({
   selector: 'app-login',
@@ -71,6 +72,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.store.dispatch(auth.setUser({ user: this.usuarioLogueado }));
       this.router.navigate(['']);
       Swal.fire('Login', `Hola ${this.usuarioLogueado.username}, has iniciado sesión con éxito!`, 'success');
+      // Borramos del store los items del usuario al cerrar sesion
+      this.store.dispatch(ingresoEgresoActions.unSetItems());
     }, (err) => {
       this.store.dispatch(ui.stopLoading());
       Swal.fire({
