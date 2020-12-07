@@ -22,8 +22,9 @@ import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
-
-
+import { DolarComponent } from './dolar/dolar.component';
+import { AddOperacionComponent } from './dolar/add-operacion/add-operacion.component';
+import { PaginationModule } from 'ngrx-data-pagination';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     IngresoEgresoComponent,
     EstadisticaComponent,
     DetalleComponent,
+    DolarComponent,
+    AddOperacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-
+    PaginationModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

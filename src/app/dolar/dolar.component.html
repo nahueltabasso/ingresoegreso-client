@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Detalle de Ahorros en Dolares</h4>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Dolar (U$S)</th>
+                  <th>Valor Dolar - Peso</th>
+                  <th>Pesos $</th>
+                  <th>Dolar Acumulado (U$S)</th>
+                  <th>Observaciones</th>
+                  <th>Tipo Operacion</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let o of operacionesDivisas">
+                  <td>{{ o.createAt | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ o.cantidadDolarCompra | currency:"USD":"symbol" }}</td>
+                  <td>{{ o.valorDolarPeso | currency:"ARS":"symbol" }}</td>
+                  <td>{{ o.totalPesos | currency:"ARS":"symbol" }}</td>
+                  <td>{{ o.dolarAcumulado | currency:"USD":"symbol" }}</td>
+                  <td>{{ o.observacion }}</td>
+                  <td [class.text-success]="o.tipoOperacion === 'INGRESO'"
+                      [class.text-danger]="o.tipoOperacion === 'EGRESO'">
+                    {{ o.tipoOperacion ? o.tipoOperacion : '' }}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" (click)="eliminarOperacion(o)">
+                      <i class="fa fa-trash"></i>
+                      Borrar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
+            <!-- <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                           class="float-left mx-2">
+            </mat-paginator> -->
+
+          </div>
+        </div>
+    </div>
+</div>
+  
+
+<!-- <mat-paginator [length]="totalRegistros"
+[pageSize]="totalPorPagina"
+[pageIndex]="paginaActual"
+[pageSizeOptions]="[5, 10, 15]">
+</mat-paginator> -->
