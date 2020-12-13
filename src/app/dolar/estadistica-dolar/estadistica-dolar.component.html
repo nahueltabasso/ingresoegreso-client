@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-6">
+      <div class="card card-statistics">
+        <div class="card-body">
+          <div class="clearfix">
+            <div class="float-left">
+              <i class="fa fa-money-bill-alt text-success icon-lg"></i>
+            </div>
+            <div class="float-right">
+              <p class="mb-0 text-right">Ingresos</p>
+              <div class="fluid-container">
+                <h3 class="font-weight-medium text-right mb-0">{{ totalIngresosDolar | currency }}</h3>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted mt-3 mb-0">
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> {{ mostrarTotalOperaciones() }} operaciones
+            lower growth
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-6">
+      <div class="card card-statistics">
+        <div class="card-body">
+          <div class="clearfix">
+            <div class="float-left">
+              <i class="fa fa-shipping-fast text-danger icon-lg"></i>
+            </div>
+            <div class="float-right">
+              <p class="mb-0 text-right">Egresos</p>
+              <div class="fluid-container">
+                <h3 class="font-weight-medium text-right mb-0">{{ totalEgresosDolar | currency }}</h3>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted mt-3 mb-0">
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> {{ countEgresos }} items
+            lower growth
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row m-5">
+    <div class="col-6">
+        <div class="card card-statistics">
+        <div class="card-body">
+            <div class="clearfix">
+            <div class="float-left">
+                <i class="fa fa-money-bill-alt text-success icon-lg"></i>
+            </div>
+            <div class="float-right">
+                <p class="mb-0 text-right">Acumulado Dolar Oficial</p>
+                <div class="fluid-container">
+                <h3 class="font-weight-medium text-right mb-0">{{ ingresosDolarOficial | currency }}</h3>
+                </div>
+            </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i>Operaciones U$D
+            lower growth
+            </p>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card card-statistics">
+            <div class="card-body">
+            <div class="clearfix">
+                <div class="float-left">
+                <i class="fa fa-money-bill-alt text-success icon-lg"></i>
+                </div>
+                <div class="float-right">
+                <p class="mb-0 text-right">Acumulado Dolar Libre</p>
+                <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{ ingresosDolarLibre | currency }}</h3>
+                </div>
+                </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+                <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i>Operaciones U$D
+                lower growth
+            </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+  
+<div class="row m-5">
+    
+    <div class="col-12">
+        <div class="card card-statistics">
+          <div class="card-body">
+  
+              <div class="clearfix">
+                  <div class="float-left">
+                    <i class="fa fa-building text-info icon-lg"></i>
+                  </div>
+                  <div class="float-right">
+                    <p class="mb-0 text-right">Diferencia</p>
+                    <div class="fluid-container">
+                      <h3 [class.text-success]="totalIngresosDolar - totalEgresosDolar >= 0" [class.text-danger]="totalIngresosDolar - totalEgresosDolar < 0" 
+                          class="font-weight-medium text-right mb-0">
+                        {{ totalIngresosDolar - totalEgresosDolar | currency }}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+          </div>    
+      </div>
+    </div>
+
+</div>
+  

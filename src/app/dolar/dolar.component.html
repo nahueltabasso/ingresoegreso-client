@@ -10,54 +10,75 @@
                 Nueva Operacion
               </button>
             </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Dolar (U$S)</th>
-                  <th>Valor Dolar - Peso</th>
-                  <th>Pesos $</th>
-                  <th>Dolar Acumulado (U$S)</th>
-                  <th>Observaciones</th>
-                  <th>Tipo Operacion</th>
-                  <th></th>
-                </tr>
-              </thead>
+            <table mat-table [dataSource]="dataSource" class="table" style="width: 100%; margin: 0rem!important;">
+              
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Fecha</strong></th>
+                <td mat-cell *matCellDef="let o" style="padding-left: 10px;"> {{ o.createAt | date: 'dd/MM/yyyy' }} </td>
+              </ng-container>
 
-              <tbody>
-                <tr *ngFor="let o of operacionesDivisas">
-                  <td>{{ o.createAt | date: 'dd/MM/yyyy' }}</td>
-                  <td>{{ o.cantidadDolarCompra | currency:"USD":"symbol" }}</td>
-                  <td>{{ o.valorDolarPeso | currency:"ARS":"symbol" }}</td>
-                  <td>{{ o.totalPesos | currency:"ARS":"symbol" }}</td>
+              <ng-container matColumnDef="cantidadDolar">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Dolar (U$S)</strong></th>
+                <td mat-cell *matCellDef="let o" style="text-align: center;"> {{ o.cantidadDolarCompra | currency:"USD":"symbol" }} </td>
+              </ng-container>
 
-                  
-                  <td>{{ o.dolarAcumulado | currency:"USD":"symbol" }}</td>
-                  <td>{{ o.observacion }}</td>
-                  <td [class.text-success]="o.tipoOperacion === 'INGRESO'"
-                      [class.text-danger]="o.tipoOperacion === 'EGRESO'">
-                    {{ o.tipoOperacion ? o.tipoOperacion : '' }}
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-danger" (click)="eliminarOperacion(o)">
-                      <i class="fa fa-trash"></i>
-                      Borrar
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <ng-container matColumnDef="tipoDolar">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo Dolar</strong></th>
+                <td mat-cell *matCellDef="let o" style="padding-left: 15px;"> {{ o.tipo }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="valorDolarPeso">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Valor Dolar - Peso</strong></th>
+                <td mat-cell *matCellDef="let o" style="text-align: center; padding-right: 10px;"> {{ o.valorDolarPeso | currency:"ARS":"symbol" }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="totalPesos">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Pesos $</strong></th>
+                <td mat-cell *matCellDef="let o" style="text-align: center;"> {{ o.totalPesos | currency:"ARS":"symbol" }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="dolarAcum">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Dolar Acumulado (U$S)</strong></th>
+                <td mat-cell *matCellDef="let o" style="text-align: center;"> {{ o.dolarAcumulado | currency:"USD":"symbol" }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="observacion">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Observaciones</strong></th>
+                <td mat-cell *matCellDef="let o" style="padding-left: 15px;"> {{ o.observacion }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tipoOperacion">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo Operacion</strong></th>
+                <td mat-cell *matCellDef="let o" [class.text-success]="o.tipo === 'INGRESO'"
+                                                 [class.text-danger]="o.tipo === 'EGRESO'" style="padding-left: 15px;">
+                  {{ o.tipoOperacion ? o.tipoOperacion : '' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Acciones</strong></th>
+                <td mat-cell *matCellDef="let o">
+                  <button type="button" class="btn btn-danger" (click)="eliminarOperacion(o)">
+                    <i class="fa fa-trash"></i>
+                    Borrar
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let examen; columns: displayedColumns;"></tr>
 
             </table>
 
-            <mat-paginator [length]="totalRegistros"
+            <!-- <mat-paginator [length]="totalRegistros"
                            [pageSize]="totalPorPagina"
                            [pageIndex]="paginaActual"
                            [pageSizeOptions]="[5, 10, 15]"
                            (page)="paginar($event)" showFirstLastButtons>
-            </mat-paginator>
-            <!-- <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
-                           class="float-left mx-2">
             </mat-paginator> -->
+            <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                           class="float-left mx-2">
+            </mat-paginator>
 
           </div>
         </div>
@@ -66,5 +87,6 @@
   
 </div>
   
-
-
+<div class="container my-4">
+  <app-estadistica-dolar></app-estadistica-dolar>
+</div>

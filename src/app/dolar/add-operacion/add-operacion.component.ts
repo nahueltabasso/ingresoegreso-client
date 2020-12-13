@@ -54,11 +54,6 @@ export class AddOperacionComponent implements OnInit {
 
   public seleccionarTipoOperacion(event) {
     this.operacion.tipoOperacion = event;
-    if (event === 'dolarblue') {
-      this.operacion.tipo = DOLAR_LIBRE;
-    } else {
-      this.operacion.tipo = DOLAR_OFICIAL;
-    }
     this.formulario.controls['tipoDolar'].enable();
   }
 
@@ -67,6 +62,13 @@ export class AddOperacionComponent implements OnInit {
       this.formulario.controls['valorDolarPeso'].enable();
       return ;
     }
+
+    if (event === 'dolarblue') {
+      this.operacion.tipo = DOLAR_LIBRE;
+    } else {
+      this.operacion.tipo = DOLAR_OFICIAL;
+    }
+
     this.dolarService.getTipoDolar(event).subscribe(data => {
       this.dolarCotizacion = data;
       if (this.operacion.tipoOperacion === 'INGRESO') {
@@ -89,6 +91,7 @@ export class AddOperacionComponent implements OnInit {
 
   public onChangeCantidadU$D() {
     this.operacion.cantidadDolarCompra = this.formulario.controls['cantidadDolarCompra'].value;
+    console.log(this.operacion);
     this.calcularTotalPesos(this.operacion.cantidadDolarCompra, this.operacion.valorDolarPeso);
   }
 
@@ -104,11 +107,7 @@ export class AddOperacionComponent implements OnInit {
   public registrar() {
     if (this.formulario.invalid) return;
 
-    const { totalPesos } = this.formulario.value;
-    this.operacion.totalPesos = totalPesos;
-
     this.store.dispatch(ui.isLoading());
-    console.log(this.operacion);
     this.dolarService.registrarOperacion(this.operacion).subscribe(data=> {
       Swal.fire('Registro creado', 'Registro guardado con exito!', 'success');
       this.store.dispatch(ui.stopLoading());

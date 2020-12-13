@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import * as dolarActions from '../dolar/dolar.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { AddOperacionComponent } from './add-operacion/add-operacion.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-dolar',
@@ -23,18 +24,32 @@ export class DolarComponent implements OnInit, OnDestroy {
   totalRegistros = 0;
   paginaActual = 0;
   totalPorPagina = 5;
+  displayedColumns: string[] = ['fecha', 'cantidadDolar', 'tipoDolar', 'valorDolarPeso', 'totalPesos', 'dolarAcum', 'observacion', 'tipoOperacion', 'acciones'];
+  dataSource: MatTableDataSource<CompraDolar>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private store: Store<AppState>,
               private dolarService: DolarService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.calcularRangosPaginados();
+    // this.calcularRangosPaginados();
+    this.operacionesSubs = this.store.select('dolar').subscribe(data => {
+      this.operacionesDivisas = data.operaciones;
+      this.iniciarPaginador();
+    });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.operacionesSubs.unsubscribe();
+  }
+
+  public iniciarPaginador() {
+    this.dataSource = new MatTableDataSource<CompraDolar>(this.operacionesDivisas);
+    this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = LABEL_PAGINADOR;
+  }
 
   public paginar(event: PageEvent): void {
     this.paginaActual = event.pageIndex;

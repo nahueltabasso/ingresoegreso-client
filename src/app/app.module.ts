@@ -24,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { DolarComponent } from './dolar/dolar.component';
 import { AddOperacionComponent } from './dolar/add-operacion/add-operacion.component';
+import { EstadisticaDolarComponent } from './dolar/estadistica-dolar/estadistica-dolar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AddOperacionComponent } from './dolar/add-operacion/add-operacion.compo
     DetalleComponent,
     DolarComponent,
     AddOperacionComponent,
+    EstadisticaDolarComponent,
   ],
   entryComponents: [
     AddOperacionComponent
