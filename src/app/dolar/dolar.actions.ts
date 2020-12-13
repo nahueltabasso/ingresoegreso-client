@@ -14,3 +14,8 @@ export const setOperaciones = createAction(
 );
 
 export const unSetOperaciones = createAction('[DOLAR_ACTION] Un Set Operaciones');
+
+export const addOperacion = createAction(
+    '[DOLAR_ACTION] Add Operacion',
+    props<{ operacion: CompraDolar }>()
+);

@@ -49,9 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });  
   
     this.operacionesSub = this.dolarService.listarOperaciones().subscribe(data => {
-      console.log(data);
-      data.forEach(d => this.operaciones.push(d));
-      this.store.dispatch(dolarActions.setOperaciones({ operaciones: this.operaciones }));
+      this.store.dispatch(dolarActions.setOperaciones({ operaciones: data }));
     });
   }
 

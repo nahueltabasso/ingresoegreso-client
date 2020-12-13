@@ -1,9 +1,15 @@
-<div class="row">
-    <div class="col-12">
+<div class="container">
+  <div>
+    <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Detalle de Ahorros en Dolares</h4>
-
+            <div class="content">
+              <h4 class="card-title ">Detalle de Ahorros en Dolares</h4>
+              <button type="button" class="btn btn-success float-right mx-2" (click)="nuevaOperacion()">
+                <i class="fa fa-newspaper"></i>
+                Nueva Operacion
+              </button>
+            </div>
             <table class="table">
               <thead>
                 <tr>
@@ -24,6 +30,8 @@
                   <td>{{ o.cantidadDolarCompra | currency:"USD":"symbol" }}</td>
                   <td>{{ o.valorDolarPeso | currency:"ARS":"symbol" }}</td>
                   <td>{{ o.totalPesos | currency:"ARS":"symbol" }}</td>
+
+                  
                   <td>{{ o.dolarAcumulado | currency:"USD":"symbol" }}</td>
                   <td>{{ o.observacion }}</td>
                   <td [class.text-success]="o.tipoOperacion === 'INGRESO'"
@@ -41,6 +49,12 @@
 
             </table>
 
+            <mat-paginator [length]="totalRegistros"
+                           [pageSize]="totalPorPagina"
+                           [pageIndex]="paginaActual"
+                           [pageSizeOptions]="[5, 10, 15]"
+                           (page)="paginar($event)" showFirstLastButtons>
+            </mat-paginator>
             <!-- <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
                            class="float-left mx-2">
             </mat-paginator> -->
@@ -48,11 +62,9 @@
           </div>
         </div>
     </div>
+  </div>
+  
 </div>
   
 
-<!-- <mat-paginator [length]="totalRegistros"
-[pageSize]="totalPorPagina"
-[pageIndex]="paginaActual"
-[pageSizeOptions]="[5, 10, 15]">
-</mat-paginator> -->
+

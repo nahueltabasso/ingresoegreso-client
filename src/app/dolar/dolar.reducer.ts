@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { setOperaciones, setTiposDolar, unSetTiposDolar, unSetOperaciones } from './dolar.actions';
+import { setOperaciones, setTiposDolar, unSetTiposDolar, unSetOperaciones, addOperacion } from './dolar.actions';
 import { CompraDolar, DolarCotizacion } from '../models/dolar.models';
 
 export interface State {
@@ -17,7 +17,10 @@ const _dolarReducer = createReducer(initialState,
     on(setTiposDolar, (state, { dolarList }) => ({ ...state, dolarList: [...dolarList]})),
     on(unSetTiposDolar, state => ({ ...state, dolarList: [] })),
     on(setOperaciones, (state, { operaciones }) => ({ ...state, operaciones: [...operaciones]})),
-    on(unSetOperaciones, state => ({ ...state, operaciones: [] }))
+    on(unSetOperaciones, state => ({ ...state, operaciones: [] })),
+    on(addOperacion, (state, { operacion }) => ({
+        ...state,
+        operaciones: [ ...state.operaciones, operacion ]}))
 );
 
 export function dolarReducer(state, action) {

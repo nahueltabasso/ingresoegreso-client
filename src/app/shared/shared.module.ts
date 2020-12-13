@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // COMPONENTES
 import { FooterComponent } from './footer/footer.component';
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     MatPaginatorModule,
     MatTableModule,
     MatInputModule,

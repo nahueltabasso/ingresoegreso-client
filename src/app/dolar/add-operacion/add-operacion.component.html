@@ -1,1 +1,136 @@
-<p>add-operacion works!</p>
+<h1 class="animated fadeIn">
+    Nueva Operacion Compra\Venta Dolar (U$D)
+</h1>
+
+<div class="form-horizontal">
+    <div class="modal-body">
+        <form class="form-group" [formGroup]="formulario">
+            <div class="row">
+                <div class="from-groupo col-md-3">
+                    <mat-form-field>
+                        <mat-label>Tipo Operacion</mat-label>
+                        <mat-select name="tipoOperacion" id="tipoOperacion"
+                                    [placeholder]="'Tipo Operacion'"
+                                    formControlName="tipoOperacion"
+                                    (selectionChange)="seleccionarTipoOperacion($event.value)"
+                                    required>
+                            <mat-option value="INGRESO">Compra</mat-option>
+                            <mat-option value="EGRESO">Venta</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formulario.get('tipoOperacion').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+
+                <div class="from-groupo col-md-4">
+                    <mat-form-field>
+                        <mat-label>Tipo Dolar</mat-label>
+                        <mat-select name="tipoDolar" id="tipoDolar"
+                                    [placeholder]="'Tipo Dolar'"
+                                    formControlName="tipoDolar"
+                                    (selectionChange)="seleccionarTipoDolar($event.value)"
+                                    required>
+                            <mat-option value="dolaroficial">OFICIAL</mat-option>
+                            <mat-option value="dolarblue">LIBRE</mat-option>
+                            <mat-option value="santander">BCO SANTANDER</mat-option>
+                            <mat-option value="''">Otro</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formulario.get('tipoDolar').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+
+
+                <div class="form-group col-md-5" *ngIf="mostrarValorDolarPeso">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Valor Dolar Peso</mat-label>
+                        <input matInput name="valorDolarPeso" id="valorDolarPeso" type="text"
+                                        formControlName="valorDolarPeso" 
+                                        (input)="onChangeValorDolarPeso()"
+                                        required>
+                        <mat-icon matPrefix style="margin-top: 10px;">attach_money</mat-icon>
+                        <mat-error *ngIf="formulario.get('valorDolarPeso').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                        <mat-error *ngIf="formulario.get('valorDolarPeso').hasError('pattern')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Cantidad (U$D)</mat-label>
+                        <input matInput name="cantidadDolarCompra" id="cantidadDolarCompra" type="text"
+                                        formControlName="cantidadDolarCompra" 
+                                        (input)="onChangeCantidadU$D()"
+                                        placeholder="Ingrese la cantidad de U$D"
+                                        required>
+                        <mat-icon matPrefix style="margin-top: 10px;">attach_money</mat-icon>
+                        <mat-error *ngIf="formulario.get('cantidadDolarCompra').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                        <mat-error *ngIf="formulario.get('cantidadDolarCompra').hasError('pattern')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Total Pesos $</mat-label>
+                        <input matInput name="totalPesos" id="totalPesos" type="text"
+                                        formControlName="totalPesos" 
+                                        required>
+                        <mat-icon matPrefix style="margin-top: 10px;">attach_money</mat-icon>
+                        <mat-error *ngIf="formulario.get('totalPesos').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Observacion</mat-label>
+                        <textarea matInput placeholder="Observaciones de la operacion"
+                                        formControlName="observacion"
+                                        (input)="onChangeObservacion()"></textarea>
+                        <mat-error *ngIf="formulario.get('observacion').hasError('required')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                        </mat-error>  
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="margin-top: -35px;">
+        <button (click)="close()" 
+                type="button" class="btn btn-secondary" data-dismiss="modal">
+                Cerrar
+        </button> 
+        <button mat-raised-button *ngIf="!loading"
+                                  class="btn mx-2 float-right" 
+                                  type="submit" color="primary" (click)="registrar()"
+                                  [disabled]="!formulario.valid">
+            <span class="material-icons">
+                save
+            </span>
+            Registrar
+        </button>
+
+        <button mat-raised-button *ngIf="loading"
+                                  class="btn mx-2 float-right" 
+                                  type="submit" color="primary"
+                                  [disabled]="true">
+            <i class="fa fa-spin fa-sync"></i>
+            Guardando...
+        </button>
+    </div>
+</div>

@@ -11,3 +11,6 @@ export const MAX_NOMBRE_APELLIDO = 30;
 export const MIN_USERNAME = 6;
 export const MIN_PASSWORD = 8;
 export const MIN_MONTO = 0;
+
+export const DOLAR_OFICIAL = 'OFICIAL';
+export const DOLAR_LIBRE = 'LIBRE';

@@ -45,6 +45,10 @@ export class IngresoEgresoComponent implements OnInit, OnDestroy {
     });
   }
 
+  public cancelar() {
+    this.store.dispatch(ui.stopLoading());
+  }
+
   public registrar() {
     if (this.formulario.invalid) return;
 
@@ -60,9 +64,9 @@ export class IngresoEgresoComponent implements OnInit, OnDestroy {
       this.ingresoEgreso = data;
       this.store.dispatch(ingresoEgresoActions.addItem({ item: this.ingresoEgreso }));
       this.formulario.reset();
+      this.ingresoEgreso = new IngresoEgreso();
     }, (err) => {
       this.store.dispatch(ui.stopLoading());
-      console.log(err);
       Swal.fire('Error', err.message, 'error');
     });
   }

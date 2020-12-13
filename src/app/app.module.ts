@@ -14,17 +14,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { AuthModule } from './auth/auth.module';
 
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
 import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { DolarComponent } from './dolar/dolar.component';
 import { AddOperacionComponent } from './dolar/add-operacion/add-operacion.component';
-import { PaginationModule } from 'ngrx-data-pagination';
 
 @NgModule({
   declarations: [
@@ -36,12 +35,15 @@ import { PaginationModule } from 'ngrx-data-pagination';
     DolarComponent,
     AddOperacionComponent,
   ],
+  entryComponents: [
+    AddOperacionComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     SharedModule,
     AuthModule,
     ChartsModule,
@@ -50,7 +52,7 @@ import { PaginationModule } from 'ngrx-data-pagination';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    PaginationModule.forRoot()
+    // MatPaginatorModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
