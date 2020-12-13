@@ -4,45 +4,56 @@
           <div class="card-body">
             <h4 class="card-title">Detalle de ingreso egreso</h4>
 
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Descripción</th>
-                  <th>Monto</th>
-                  <th>Tipo</th>
-                  <th></th>
-                </tr>
-              </thead>
+            <table mat-table [dataSource]="dataSource" class="table" style="width: 100%; margin: 0rem!important;">
 
-              <tbody>
-                <tr *ngFor="let item of ingresosEgresos">
-                  <td>{{ item.createAt | date: 'dd/MM/yyyy' }}</td>
-                  <td>{{ item.descripcion }}</td>
-                  <td>{{ item.monto | currency }}</td>
-                  <td [class.text-success]="item.tipo === 'INGRESO'"
-                      [class.text-danger]="item.tipo === 'EGRESO'">
-                    {{ item.tipo }}
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-danger" (click)="eliminarItem(item)">
-                      <i class="fa fa-trash"></i>
-                      Borrar
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Fecha</strong></th>
+                <td mat-cell *matCellDef="let item"> {{ item.createAt | date: 'dd/MM/yyyy' }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="descripcion">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Descripción</strong></th>
+                <td mat-cell *matCellDef="let item"> {{ item.descripcion }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="monto">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Monto</strong></th>
+                <td mat-cell *matCellDef="let item"> {{ item.monto | currency }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo</strong></th>
+                <td mat-cell *matCellDef="let item" [class.text-success]="item.tipo === 'INGRESO'"
+                                                    [class.text-danger]="item.tipo === 'EGRESO'">
+                  {{ item.tipo }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Acciones</strong></th>
+                <td mat-cell *matCellDef="let item">
+                  <button type="button" class="btn btn-danger" (click)="eliminarItem(item)">
+                    <i class="fa fa-trash"></i>
+                    Borrar
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let examen; columns: displayedColumns;"></tr>
 
             </table>
 
-
-            <mat-paginator [length]="totalRegistros"
+            <!-- <mat-paginator [length]="totalRegistros"
                            [pageSize]="totalPorPagina"
                            [pageIndex]="paginaActual"
                            [pageSizeOptions]="[5, 10, 15]"
                            (page)="paginar($event)" showFirstLastButtons>
-            </mat-paginator>
+            </mat-paginator> -->
 
+            <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                           class="float-left mx-2">
+            </mat-paginator>
 
           </div>
         </div>
