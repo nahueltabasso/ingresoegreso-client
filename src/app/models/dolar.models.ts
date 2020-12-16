@@ -19,3 +19,10 @@ export class CompraDolar {
     usuario: UsuarioDTO;
     tipoOperacion: string;
 }
+
+export class CompraDolarFilterDTO {
+    tipoOperacion: string;
+    tipoDolar: string;
+    fechaDesde: Date;
+    fechaHasta: Date;
+}

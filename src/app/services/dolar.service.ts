@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_ENDPOINT } from '../config/app';
-import { CompraDolar, DolarCotizacion } from '../models/dolar.models';
+import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/dolar.models';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +46,9 @@ export class DolarService {
 
   eliminarOperacion(id: string): Observable<void> {
     return this.http.delete<void>(this.endpointOperaciones + '/eliminar/' + id);
+  }
+
+  search(filterDTO: CompraDolarFilterDTO): Observable<CompraDolar[]> {
+    return this.http.post<CompraDolar[]>(this.endpointOperaciones + '/search', filterDTO);
   }
 }

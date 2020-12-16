@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { CompraDolar } from 'src/app/models/dolar.models';
@@ -19,6 +19,7 @@ export class EstadisticaDolarComponent implements OnInit {
   countEgresos: number = 0;
   totalIngresosDolar: number = 0;
   totalEgresosDolar: number = 0;
+  flagSearch: boolean = false;
 
   constructor(private store: Store<AppState>) { }
 
@@ -26,6 +27,19 @@ export class EstadisticaDolarComponent implements OnInit {
     this.store.select('dolar').subscribe(data => {
       this.generarEstadisticas(data.operaciones);
     });
+  }
+
+  public setFlagSearch(flag: boolean) {
+    this.flagSearch = flag;
+    if (this.flagSearch) {
+      this.store.select('dolar').subscribe(data => {
+        this.generarEstadisticas(data.operacionesByFiltros);
+      });
+    } else {
+      this.store.select('dolar').subscribe(data => {
+        this.generarEstadisticas(data.operaciones);
+      });
+    }
   }
 
   public generarEstadisticas(operaciones: CompraDolar[]) {
