@@ -105,6 +105,9 @@ export class DolarComponent implements OnInit, OnDestroy {
       this.store.dispatch(ui.stopLoading());
       this.operacionesDivisas = data;
       this.iniciarPaginador();
+      if (this.operacionesDivisas.length === 0) {
+        Swal.fire('Atencion', 'No se encontraron resultados de acuerdo a los filtros!', 'info');
+      }
       this.flagSearch = true;
       this.estadisticaDolar.setFlagSearch(this.flagSearch);
     });
@@ -115,6 +118,7 @@ export class DolarComponent implements OnInit, OnDestroy {
     this.formulario.reset();
     this.store.dispatch(dolarActions.unSetFiltros());
     this.store.dispatch(dolarActions.unSetOperacionesByFiltros());
+    this.store.dispatch(dolarActions.setCount());
     this.formulario.controls['fechaDesdeTxt'].setValue(this.transformDate(new Date()));
     this.formulario.controls['fechaHastaTxt'].setValue(this.transformDate(new Date()));
     this.filterDTO.fechaDesde = new Date();

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/dolar.models';
+import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion, EstadisticaDolar } from '../models/dolar.models';
 
 export const setTiposDolar = createAction(
     '[DOLAR_ACTION] Set Tipos de Dolar',
@@ -35,3 +35,8 @@ export const setOperacionesByFiltros = createAction(
 export const unSetOperacionesByFiltros = createAction('[DOLAR_ACTION] Un Set Operaciones Filtradas');
 
 export const setCount = createAction('[DOLAR_ACTION] Set Count Busquedas');
+
+export const setEstadisticasDolar = createAction(
+    '[DOLAR_ACTION] Set Estadisticas Dolar',
+    props<{ estadisticas: EstadisticaDolar }>()
+);

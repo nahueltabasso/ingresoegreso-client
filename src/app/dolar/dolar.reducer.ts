@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { setOperaciones, setTiposDolar, unSetTiposDolar, unSetOperaciones, addOperacion, setFiltros, unSetFiltros, setOperacionesByFiltros, unSetOperacionesByFiltros, setCount } from './dolar.actions';
-import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/dolar.models';
+import { setOperaciones, setTiposDolar, unSetTiposDolar, unSetOperaciones, addOperacion, setFiltros, unSetFiltros, setOperacionesByFiltros, unSetOperacionesByFiltros, setCount, setEstadisticasDolar } from './dolar.actions';
+import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion, EstadisticaDolar } from '../models/dolar.models';
 
 export interface State {
     dolarList: DolarCotizacion[]; 
@@ -8,6 +8,7 @@ export interface State {
     operacionesByFiltros: CompraDolar[];
     filtrosActuales: CompraDolarFilterDTO;
     count: number;
+    estadisticas: EstadisticaDolar;
 }
 
 export const initialState: State = {
@@ -15,7 +16,8 @@ export const initialState: State = {
    operaciones: [],
    operacionesByFiltros: [],
    filtrosActuales: null,
-   count: 0
+   count: 0,
+   estadisticas: null,
 }
 
 const _dolarReducer = createReducer(initialState,
@@ -33,7 +35,8 @@ const _dolarReducer = createReducer(initialState,
     on(unSetOperacionesByFiltros, state => ({ ...state, operacionesByFiltros: [] })),
     on(setCount, state => ({ 
         ...state, 
-        count: state.count + 1}))
+        count: state.count + 1})),
+    on(setEstadisticasDolar, (state, { estadisticas }) => ({ ...state, estadisticas: estadisticas}))
 );
 
 export function dolarReducer(state, action) {

@@ -26,3 +26,15 @@ export class CompraDolarFilterDTO {
     fechaDesde: Date;
     fechaHasta: Date;
 }
+
+export class EstadisticaDolar {
+    ingresosDolarOficial: number;
+    ingresosDolarLibre: number;
+    egresosDolar: number;
+    countIngresosOficial: number;
+    countIngresosLibre: number;
+    countEgresos: number;
+    totalIngresosDolar: number;
+    totalEgresosDolar: number;
+    totalOperaciones: number;
+}

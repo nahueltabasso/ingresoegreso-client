@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
-import { CompraDolar } from 'src/app/models/dolar.models';
+import { CompraDolar, EstadisticaDolar } from 'src/app/models/dolar.models';
 import { DOLAR_LIBRE } from 'src/app/shared/constants';
+import * as dolarActions from '../dolar.actions';
 
 @Component({
   selector: 'app-estadistica-dolar',
@@ -20,6 +21,7 @@ export class EstadisticaDolarComponent implements OnInit {
   totalIngresosDolar: number = 0;
   totalEgresosDolar: number = 0;
   flagSearch: boolean = false;
+  estadisticas: EstadisticaDolar = new EstadisticaDolar();
 
   constructor(private store: Store<AppState>) { }
 
@@ -51,7 +53,7 @@ export class EstadisticaDolarComponent implements OnInit {
     this.countEgresos = 0;
     this.countIngresosLibre = 0;
     this.countIngresosOficial = 0;
-
+    this.estadisticas = new EstadisticaDolar();
     for (const o of operaciones) {
       if (o.tipoOperacion === 'INGRESO') {
         if (o.tipo === DOLAR_LIBRE) {
@@ -68,6 +70,14 @@ export class EstadisticaDolarComponent implements OnInit {
     }
     this.totalIngresosDolar = this.ingresosDolarOficial + this.ingresosDolarLibre;
     this.totalEgresosDolar = this.egresosDolar;
+    this.estadisticas.ingresosDolarLibre = this.ingresosDolarLibre;
+    this.estadisticas.ingresosDolarOficial = this.ingresosDolarOficial;
+    this.estadisticas.countIngresosLibre = this.countIngresosLibre;
+    this.estadisticas.countIngresosOficial = this.countIngresosOficial;
+    this.estadisticas.egresosDolar = this.egresosDolar;
+    this.estadisticas.countEgresos = this.countEgresos;
+    this.estadisticas.totalOperaciones = this.mostrarTotalOperaciones();
+    // this.store.dispatch(dolarActions.setEstadisticasDolar({ estadisticas: this.estadisticas }));
   }
 
   public mostrarTotalOperaciones() {
