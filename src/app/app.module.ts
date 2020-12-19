@@ -49,7 +49,14 @@ import { EstadisticaDolarComponent } from './dolar/estadistica-dolar/estadistica
     SharedModule,
     AuthModule,
     ChartsModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers,
+        {  
+          runtimeChecks: { 
+            strictStateImmutability: false, 
+            strictActionImmutability: false,
+          } 
+        }
+      ),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

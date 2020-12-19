@@ -1,3 +1,5 @@
+import { Mes } from "../models/ingresoegreso.models";
+
 // EXPRESIONES REGULARES 
 export const PATTERN_ONLYLETTERS = '^[a-zA-Z\s]*$';
 export const PATTERN_ONLYNUMBER = '^[0-9]*$';
@@ -14,3 +16,20 @@ export const MIN_MONTO = 0;
 
 export const DOLAR_OFICIAL = 'OFICIAL';
 export const DOLAR_LIBRE = 'LIBRE';
+
+export const MESES_ANIO: Mes[] = [
+    {nroMes: 1,mes: 'ENERO'},
+    {nroMes: 2,mes: 'FEBRERO'},
+    {nroMes: 3,mes: 'MARZO'},
+    {nroMes: 4,mes: 'ABRIL'},
+    {nroMes: 5,mes: 'MAYO'},
+    {nroMes: 6,mes: 'JUNIO'},
+    {nroMes: 7,mes: 'JULIO'},
+    {nroMes: 8,mes: 'AGOSTO'},
+    {nroMes: 9,mes: 'SEPTIEMBRE'},
+    {nroMes: 10,mes: 'OCTUBRE'},
+    {nroMes: 11,mes: 'NOVIEMBRE'},
+    {nroMes: 12,mes: 'DICIEMBRE'}
+];
+
+export const MESES_STRING = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];

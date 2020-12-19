@@ -19,12 +19,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 // COMPONENTES
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+
+// PIPES
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +57,8 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatStepperModule,
     MatChipsModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
     RouterModule
   ],
   exports: [
@@ -72,7 +80,10 @@ import { RouterModule } from '@angular/router';
     MatDatepickerModule,
     MatIconModule,
     MatStepperModule,
-    MatChipsModule
-  ]
+    MatChipsModule,
+    MatNativeDateModule,
+    MatMomentDateModule
+  ],
+  providers: [DatePipe]
 })
 export class SharedModule { }

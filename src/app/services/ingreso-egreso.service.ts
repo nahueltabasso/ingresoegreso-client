@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_ENDPOINT } from '../config/app';
-import { IngresoEgreso } from '../models/ingresoegreso.models';
+import { IngresoEgreso, IngresoEgresoFilterDTO } from '../models/ingresoegreso.models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +29,9 @@ export class IngresoEgresoService {
     const params = new HttpParams().set('page', page)
                                    .set('size', size);
     return this.http.get<any>(this.endpoint + '/ingresos-egresos-usuario-paginados', { params: params });
+  }
+
+  search(filterDTO: IngresoEgresoFilterDTO): Observable<IngresoEgreso[]> {
+    return this.http.post<IngresoEgreso[]>(this.endpoint + '/search', filterDTO);
   }
 }
