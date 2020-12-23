@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 
 
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    RecaptchaModule
   ]
 })
 export class AuthModule { }

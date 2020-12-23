@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   usuario: UsuarioDTO = new UsuarioDTO();
   uiSubscription: Subscription;
   loading: boolean = false;
+  flagRecaptcha: boolean = false;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -50,6 +51,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   
   public inputPassword() {
     this.usuario.password = this.formulario.controls['password'].value;
+  }
+
+  public resolved(captchaResponse: string) {
+    this.usuario.recaptcha = captchaResponse;
+    this.flagRecaptcha = true;
   }
 
   public registrarNuevoUsuario() {

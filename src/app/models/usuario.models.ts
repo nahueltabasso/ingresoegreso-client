@@ -21,5 +21,6 @@ export class UsuarioDTO {
     nombre: string;
     apellido: string;
     roles: string[];
+    recaptcha: string;
 }
 

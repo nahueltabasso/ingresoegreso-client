@@ -81,13 +81,19 @@
             </div>
 
             <div class="form-group">
+              <div clasS="input-group">
+                <re-captcha (resolved)="resolved($event)" siteKey="6LcVzBEaAAAAAJZvCEYupPZudphHO1e4-chWDru7"></re-captcha>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 45px;">
               <button type="submit" *ngIf="!loading"
-                      class="btn btn-primary submit-btn btn-block" [disabled]="formulario.invalid">
+                      class="btn btn-primary submit-btn btn-block" [disabled]="formulario.invalid && !usuario.recaptcha">
                 Crear cuenta
               </button>
 
               
-              <button type="button" 
+              <button type="button" style="margin-top: 45px;"
                       class="btn btn-primary submit-btn btn-block" 
                       [disabled]="true"
                       *ngIf="loading">
