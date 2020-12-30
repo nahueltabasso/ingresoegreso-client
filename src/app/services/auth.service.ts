@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { BASE_ENDPOINT } from '../config/app';
-import { LoginDTO, UsuarioDTO, UsuarioLoginDTO } from '../models/usuario.models';
+import { LoginDTO, PasswordDTO, UsuarioDTO, UsuarioLoginDTO } from '../models/usuario.models';
 import { TokenStorageService } from './token-storage.service';
 import * as auth from '../auth/auth.actions';
 
@@ -14,6 +14,7 @@ import * as auth from '../auth/auth.actions';
 export class AuthService {
 
   endpoint = BASE_ENDPOINT + '/auth';
+  endpointPassword = BASE_ENDPOINT + '/password';
 
   constructor(private http: HttpClient,
               private tokenStorage: TokenStorageService,
@@ -37,4 +38,11 @@ export class AuthService {
     return false;
   }
 
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(this.endpointPassword + '/forgotpassword?email=' + email, null);
+  }
+
+  resetPassword(passwordDTO: PasswordDTO): Observable<any> {
+    return this.http.post<any>(this.endpointPassword + '/resetpassword', passwordDTO);
+  }
 }

@@ -9,3 +9,8 @@ export const setUser = createAction(
 export const unSetUser = createAction(
     '[AUTH Component] unSetUser'
 );
+
+export const solicitarCambioPassword = createAction(
+    '[AUTH Component] Solicitar Cambio de Password',
+    props<{ email: string }>()
+);

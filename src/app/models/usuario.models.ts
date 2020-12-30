@@ -24,3 +24,10 @@ export class UsuarioDTO {
     recaptcha: string;
 }
 
+export class PasswordDTO {
+    token: string;
+    oldPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+

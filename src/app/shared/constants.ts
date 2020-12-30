@@ -1,3 +1,4 @@
+import { FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { Mes } from "../models/ingresoegreso.models";
 
 // EXPRESIONES REGULARES 
@@ -33,3 +34,12 @@ export const MESES_ANIO: Mes[] = [
 ];
 
 export const MESES_STRING = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];
+
+export const validEqualsPasswords: ValidatorFn = (
+    control: FormGroup
+): ValidationErrors | null => {
+    const password = control.get("newPass");
+    const confirmPassword = control.get("confirmPass");
+
+    return password.value === confirmPassword.value ? null : { notEquals: true }
+}

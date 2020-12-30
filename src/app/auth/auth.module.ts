@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
