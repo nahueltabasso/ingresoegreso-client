@@ -9,3 +9,39 @@ mat-form-field {
     background-color: white !important;
     border-radius: 5px;  
   }
+
+  img {
+    max-width: 100%;
+  }
+
+  .container img {
+  margin-top: 150px;
+}
+
+input[type="submit"]{
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  height: auto;
+}
+
+.resultado {
+  color: white;
+
+}
+.resultado h2 {
+  font-weight: bold;
+  color: white;
+}
+
+
+.resultado p {
+  font-size: 18px!important;
+}
+.resultado p span {
+  font-weight: bold;
+}
+p.precio{
+  font-size: 30px!important;
+}

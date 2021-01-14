@@ -25,6 +25,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { DolarComponent } from './dolar/dolar.component';
 import { AddOperacionComponent } from './dolar/add-operacion/add-operacion.component';
 import { EstadisticaDolarComponent } from './dolar/estadistica-dolar/estadistica-dolar.component';
+import { ConsultarCriptomonedaComponent } from './web-service/consultar-criptomoneda/consultar-criptomoneda.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EstadisticaDolarComponent } from './dolar/estadistica-dolar/estadistica
     DolarComponent,
     AddOperacionComponent,
     EstadisticaDolarComponent,
+    ConsultarCriptomonedaComponent,
   ],
   entryComponents: [
     AddOperacionComponent

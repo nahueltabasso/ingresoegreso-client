@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { dashboardRoutes } from './dashboard/dashboard.routes';
 import { AuthGuard } from './services/guard/auth.guard';
+import { ConsultarCriptomonedaComponent } from './web-service/consultar-criptomoneda/consultar-criptomoneda.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'resetpassword', component: ResetPasswordComponent },
+    { path: 'consultar-criptomoneda', component: ConsultarCriptomonedaComponent },
     {
         path: '',
         component: DashboardComponent,

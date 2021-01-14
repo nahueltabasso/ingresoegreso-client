@@ -1,0 +1,67 @@
+<link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet"> 
+
+<div class="container" style="background-color: #0d2235;">
+    <div class="row">
+        <div class="one-half column">
+            <img src="assets/images/cryptomonedas.png" alt="ConsultarCrypto" class="logotipo">
+        </div>
+
+        <div class="one-half column">
+            <h1 style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px;">
+                Cotiza Criptomonedas al Instante
+            </h1>
+
+            <form [formGroup]="formulario" style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Cryptomoneda</mat-label>
+                            <mat-select name="crytomoneda" id="crytomoneda"
+                                        [placeholder]="'Cryptomoneda'"
+                                        formControlName="crytomoneda"
+                                        (selectionChange)="seleccionarCryptomoneda($event.value)">
+                                <mat-option *ngFor="let c of cryptoList" [value]="c">{{ c.CoinInfo.FullName }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formulario.get('crytomoneda').hasError('required')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                            </mat-error>  
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Moneda</mat-label>
+                            <mat-select name="moneda" id="moneda"
+                                        [placeholder]="'Moneda'"
+                                        formControlName="moneda"
+                                        (selectionChange)="seleccionarMoneda($event.value)">
+                                <mat-option value="USD">Dolar Americano</mat-option>
+                                <mat-option value="GBP">Libras</mat-option>
+                                <mat-option value="EUR">Euro</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formulario.get('moneda').hasError('required')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                            </mat-error>  
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <input type="submit" *ngIf="!loading" class="button-primary u-full-width" style="width: 750px; margin-left: 165px;" value="Cotizar" [disabled]="formulario.invalid" (click)="consultarCotizacionCryptomoneda()" />
+                <input type="submit" *ngIf="loading" class="button-primary u-full-width" style="width: 750px; margin-left: 165px;" value="Buscando..." [disabled]="true" />
+            </div>
+
+            <div class="row" *ngIf="cotizacion" style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px">
+                <div class="resultado">
+                    <p class="precio">El precio es <span>{{ cotizacion.PRICE }}</span></p>
+                    <p>Precio mas alto del dia: <span>{{ cotizacion.HIGHDAY }}</span></p>
+                    <p>Precio mas bajo del dia: <span>{{ cotizacion.LOWDAY }}</span></p>
+                    <p>Variacion ultimas 24 horas: <span>{{ cotizacion.CHANGEPCT24HOUR }}</span></p>
+                    <p>Ultima Actualizacion: <span>{{ cotizacion.LASTUPDATE }}</span></p>
+                </div>
+            </div>
+        </div>
+  
+    </div>
+</div>
