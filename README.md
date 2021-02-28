@@ -14,8 +14,6 @@ Despues instalamos angular cli
     npm install -g @angular/cli
 `
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
-
 ## LEVANTAR LA APP EN AMBIENTE LOCAL
 	- git clone <repo> 
 	- git checkout development 
