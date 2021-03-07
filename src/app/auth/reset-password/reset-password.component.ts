@@ -7,7 +7,7 @@ import  * as auth from 'src/app/auth/auth.actions';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
-import { validEqualsPasswords } from 'src/app/shared/constants';
+import { CODIGO_VERIFICACION_LENGTH, PATTERN_ONLYNUMBER, validEqualsPasswords } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,6 +22,9 @@ export class ResetPasswordComponent implements OnInit {
   formulario: FormGroup;
   formularioReset: FormGroup;
   emailUsuario: string;
+  telefonoUsuario: string;
+  flagTelefono: boolean = false;
+  flagTokenField: boolean = false;
 
   constructor(private router: Router,
               private fb: FormBuilder,
@@ -42,8 +45,10 @@ export class ResetPasswordComponent implements OnInit {
   public createForm() {
     this.formulario = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
+      telefono: ['', ]
     });
     this.formularioReset = this.fb.group({
+      token: ['', ],
       oldPass: ['', Validators.required],
       newPass: ['', Validators.required],
       confirmPass: ['', Validators.required]
@@ -55,12 +60,17 @@ export class ResetPasswordComponent implements OnInit {
   public solicitarCambioPassword() {
     if (this.formulario.invalid) return;
 
-    const { email } = this.formulario.value;
+    const { email, telefono } = this.formulario.value;
     this.emailUsuario = email;
-    console.log("llega")
+    this.telefonoUsuario = telefono;
     this.store.dispatch(auth.solicitarCambioPassword({ email: this.emailUsuario }));
-    this.authService.forgotPassword(this.emailUsuario).subscribe(data => {
-      console.log(data);
+    this.authService.forgotPassword(this.emailUsuario, this.telefonoUsuario).subscribe(data => {
+      if (this.telefonoUsuario !== undefined && this.telefonoUsuario !== '') {
+        console.log("entra")
+        this.flagToken = true;
+        this.flagTokenField = true;
+        this.formulario.controls['token'].setValidators(Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYNUMBER)]))
+      }
       if (data.error === null) {
         Swal.fire('Listo!', 'Se te ha enviado un correo a tu casilla con los pasos a seguir!', 'success');
       } else {
@@ -72,11 +82,14 @@ export class ResetPasswordComponent implements OnInit {
   public resetPassword() {
     if (this.formularioReset.invalid) return;
 
-    const { oldPass, newPass, confirmPass } = this.formularioReset.value;
+    const { token, oldPass, newPass, confirmPass } = this.formularioReset.value;
     this.passwordDTO.oldPassword = oldPass;
     this.passwordDTO.newPassword = newPass;
     this.passwordDTO.confirmNewPassword = confirmPass;
-    console.log(this.passwordDTO);
+    if (this.passwordDTO.token === undefined || this.passwordDTO.token === '') {
+      console.log("hola")
+      this.passwordDTO.token = token;
+    }
     this.authService.resetPassword(this.passwordDTO).subscribe(data => {
       Swal.fire('Hecho', data.message, 'success');
       this.router.navigate(['/login']);
@@ -89,6 +102,11 @@ export class ResetPasswordComponent implements OnInit {
     return this.formularioReset.hasError('notEquals') &&
            this.formularioReset.get('newPass').dirty &&
            this.formularioReset.get('confirmPass').dirty;
+  }
+
+  public showPhoneField() {
+    this.flagTelefono = true;
+    this.formulario.controls['telefono'].setValidators(Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYNUMBER)]));
   }
 
 }

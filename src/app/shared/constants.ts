@@ -4,6 +4,7 @@ import { Mes } from "../models/ingresoegreso.models";
 // EXPRESIONES REGULARES 
 export const PATTERN_ONLYLETTERS = '^[a-zA-Z\s]*$';
 export const PATTERN_ONLYNUMBER = '^[0-9]*$';
+export const PATTERN_VALID_PHONE = '/^((?:\(?\d{3}\)?[- .]?\d{4}|\(?\d{4}\)?[- .]?\d{3}|\(?\d{5}\)?[- .]?\d{2})[- .]?\d{4})$/';
 
 // LABEL PAGINADOR
 export const LABEL_PAGINADOR = 'Registro por pagina';
@@ -14,6 +15,7 @@ export const MAX_NOMBRE_APELLIDO = 30;
 export const MIN_USERNAME = 6;
 export const MIN_PASSWORD = 8;
 export const MIN_MONTO = 0;
+export const CODIGO_VERIFICACION_LENGTH = 8;
 
 export const DOLAR_OFICIAL = 'OFICIAL';
 export const DOLAR_LIBRE = 'LIBRE';

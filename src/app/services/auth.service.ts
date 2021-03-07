@@ -38,11 +38,12 @@ export class AuthService {
     return false;
   }
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post<any>(this.endpointPassword + '/forgotpassword?email=' + email, null);
+  forgotPassword(email: string, telefono: string): Observable<any> {
+    return this.http.post<any>(this.endpointPassword + '/forgotpassword?email=' + email + "&telefono=" + telefono, null);
   }
 
   resetPassword(passwordDTO: PasswordDTO): Observable<any> {
     return this.http.post<any>(this.endpointPassword + '/resetpassword', passwordDTO);
   }
 }
+ 
