@@ -66,7 +66,6 @@ export class ResetPasswordComponent implements OnInit {
     this.store.dispatch(auth.solicitarCambioPassword({ email: this.emailUsuario }));
     this.authService.forgotPassword(this.emailUsuario, this.telefonoUsuario).subscribe(data => {
       if (this.telefonoUsuario !== undefined && this.telefonoUsuario !== '') {
-        console.log("entra")
         this.flagToken = true;
         this.flagTokenField = true;
         this.formulario.controls['token'].setValidators(Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYNUMBER)]))
@@ -87,7 +86,6 @@ export class ResetPasswordComponent implements OnInit {
     this.passwordDTO.newPassword = newPass;
     this.passwordDTO.confirmNewPassword = confirmPass;
     if (this.passwordDTO.token === undefined || this.passwordDTO.token === '') {
-      console.log("hola")
       this.passwordDTO.token = token;
     }
     this.authService.resetPassword(this.passwordDTO).subscribe(data => {
