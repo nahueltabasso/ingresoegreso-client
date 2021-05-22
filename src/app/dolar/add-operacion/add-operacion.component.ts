@@ -58,8 +58,12 @@ export class AddOperacionComponent implements OnInit {
   }
 
   public seleccionarTipoDolar(event) {
-    if (event === '') {
+    console.log(event)
+    if (event === 'Otro') {
       this.formulario.controls['valorDolarPeso'].enable();
+      this.formulario.controls['valorDolarPeso'].setValue(0);
+      this.mostrarValorDolarPeso = true;
+      this.operacion.tipo = DOLAR_LIBRE;
       return ;
     }
 
@@ -91,7 +95,6 @@ export class AddOperacionComponent implements OnInit {
 
   public onChangeCantidadU$D() {
     this.operacion.cantidadDolarCompra = this.formulario.controls['cantidadDolarCompra'].value;
-    console.log(this.operacion);
     this.calcularTotalPesos(this.operacion.cantidadDolarCompra, this.operacion.valorDolarPeso);
   }
 

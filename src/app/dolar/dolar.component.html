@@ -164,8 +164,8 @@
 
               <ng-container matColumnDef="tipoOperacion">
                 <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo Operacion</strong></th>
-                <td mat-cell *matCellDef="let o" [class.text-success]="o.tipo === 'INGRESO'"
-                                                 [class.text-danger]="o.tipo === 'EGRESO'" style="padding-left: 15px;">
+                <td mat-cell *matCellDef="let o" [class.text-success]="o.tipoOperacion === 'INGRESO'"
+                                                 [class.text-danger]="o.tipoOperacion === 'EGRESO'">
                   {{ o.tipoOperacion }}
                 </td>
               </ng-container>
