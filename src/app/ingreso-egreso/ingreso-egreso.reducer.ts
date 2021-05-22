@@ -23,7 +23,7 @@ const _ingresoEgresoReducer = createReducer(initialState,
     on(unSetItems, state => ({...state, items: [] })),
     on(addItem, (state, { item }) => ({
         ...state, 
-        items: [ ...state.items, item ]})),
+        items: [ item, ...state.items ]})),
     on(setFiltros, (state, { filtrosDTO }) => ({ ...state, filtrosActuales: filtrosDTO })), 
     on(unSetFiltros, state => ({ ...state, filtrosActuales: null })),
     on(setItemsByFiltros, (state, { itemsFiltrados }) => ({ ...state, itemsByFiltros: [...itemsFiltrados] })),

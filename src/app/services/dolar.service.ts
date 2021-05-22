@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BASE_ENDPOINT } from '../config/app';
+import { environment } from 'src/environments/environment';
 import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/dolar.models';
 
 @Injectable({
@@ -9,8 +9,8 @@ import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/do
 })
 export class DolarService {
 
-  endpoint = BASE_ENDPOINT + '/dolar';
-  endpointOperaciones = BASE_ENDPOINT + '/compradolar';
+  endpoint = environment.based_endpoint + '/dolar';
+  endpointOperaciones = environment.based_endpoint + '/compradolar';
 
   constructor(private http: HttpClient) { }
 

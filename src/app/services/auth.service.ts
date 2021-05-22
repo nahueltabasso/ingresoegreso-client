@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../app.reducer';
-import { BASE_ENDPOINT } from '../config/app';
 import { LoginDTO, PasswordDTO, UsuarioDTO, UsuarioLoginDTO } from '../models/usuario.models';
 import { TokenStorageService } from './token-storage.service';
 import * as auth from '../auth/auth.actions';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  endpoint = BASE_ENDPOINT + '/auth';
-  endpointPassword = BASE_ENDPOINT + '/password';
+  endpoint = environment.based_endpoint + '/auth';
+  endpointPassword = environment.based_endpoint + '/password';
 
   constructor(private http: HttpClient,
               private tokenStorage: TokenStorageService,
