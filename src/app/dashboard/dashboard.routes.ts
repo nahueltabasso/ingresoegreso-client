@@ -3,6 +3,7 @@ import { EstadisticaComponent } from '../ingreso-egreso/estadistica/estadistica.
 import { IngresoEgresoComponent } from '../ingreso-egreso/ingreso-egreso.component';
 import { DetalleComponent } from '../ingreso-egreso/detalle/detalle.component';
 import { DolarComponent } from '../dolar/dolar.component';
+import { ConsultarCriptomonedaComponent } from '../web-service/consultar-criptomoneda/consultar-criptomoneda.component';
 
 
 
@@ -11,5 +12,6 @@ export const dashboardRoutes: Routes = [
  { path: '', component: EstadisticaComponent },
  { path: 'ingreso-egreso', component: IngresoEgresoComponent },
  { path: 'detalle', component: DetalleComponent },
- { path: 'dolar-oper', component: DolarComponent }
+ { path: 'dolar-oper', component: DolarComponent },
+ { path: 'consultar-criptomoneda', component: ConsultarCriptomonedaComponent },
 ];

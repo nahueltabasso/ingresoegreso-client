@@ -1,18 +1,20 @@
-<link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet"> 
-
-<div class="container" style="background-color: #0d2235;">
-    <div class="row">
-        <div class="one-half column">
-            <img src="assets/images/cryptomonedas.png" alt="ConsultarCrypto" class="logotipo">
-        </div>
-
-        <div class="one-half column">
-            <h1 style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px;">
-                Cotiza Criptomonedas al Instante
-            </h1>
-
-            <form [formGroup]="formulario" style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px">
-                <div class="row">
+<div class="container">
+    <div class="col-sm-12 col-md-12">
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>search</mat-icon>
+              <strong>Filtros</strong>
+            </mat-panel-title>
+            <mat-panel-description>
+              Busqueda de operaciones Ingresos-Egresos personalizada
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+            <div class="form-horizontal col-sm-12 col-md-12">
+              <form class="form-group" [formGroup]="formulario">
+                <div class="container-12">
+                  <div class="row">
                     <div class="col">
                         <mat-form-field>
                             <mat-label>Cryptomoneda</mat-label>
@@ -27,8 +29,7 @@
                             </mat-error>  
                         </mat-form-field>
                     </div>
-                </div>
-                <div class="row">
+    
                     <div class="col">
                         <mat-form-field>
                             <mat-label>Moneda</mat-label>
@@ -45,23 +46,43 @@
                             </mat-error>  
                         </mat-form-field>
                     </div>
-                </div>
-            </form>
-            <div class="row">
-                <input type="submit" *ngIf="!loading" class="button-primary u-full-width" style="width: 750px; margin-left: 165px;" value="Cotizar" [disabled]="formulario.invalid" (click)="consultarCotizacionCryptomoneda()" />
-                <input type="submit" *ngIf="loading" class="button-primary u-full-width" style="width: 750px; margin-left: 165px;" value="Buscando..." [disabled]="true" />
-            </div>
-
-            <div class="row" *ngIf="cotizacion" style="color:white; text-align: left; font-weight: 700; font-size: 50px; margin-bottom: 100px; margin-top: 80px; padding-left: 150px">
-                <div class="resultado">
-                    <p class="precio">El precio es <span>{{ cotizacion.PRICE }}</span></p>
-                    <p>Precio mas alto del dia: <span>{{ cotizacion.HIGHDAY }}</span></p>
-                    <p>Precio mas bajo del dia: <span>{{ cotizacion.LOWDAY }}</span></p>
-                    <p>Variacion ultimas 24 horas: <span>{{ cotizacion.CHANGEPCT24HOUR }}</span></p>
-                    <p>Ultima Actualizacion: <span>{{ cotizacion.LASTUPDATE }}</span></p>
-                </div>
-            </div>
-        </div>
+                  </div>
   
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="button" *ngIf="!loading" class="btn btn-success float-right mx-2" (click)="consultarCotizacionCryptomoneda()" [disabled]="formulario.invalid">
+                      <i class="fa fa-search-plus"></i>
+                      Buscar
+                    </button> 
+  
+                    <button type="button" class="btn btn-secondary float-right mx-2" (click)="cleanFilter()">
+                      <i class="fa fa-reply"></i>
+                      Limpiar
+                    </button>
+                  </div>
+    
+                </div>
+              </form>
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
 </div>
+
+
+<div class="container my-4" *ngIf="mostrarResultados">
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center"><b>Valores - {{ cryptomoneda }}</b></h1>
+            <div>
+                <p class="precio">El precio es <span>{{ cotizacion.PRICE }}</span></p>
+                <p>Precio mas alto del dia: <span>{{ cotizacion.HIGHDAY }}</span></p>
+                <p>Precio mas bajo del dia: <span>{{ cotizacion.LOWDAY }}</span></p>
+                <p>Variacion ultimas 24 horas: <span>{{ cotizacion.CHANGEPCT24HOUR }}</span></p>
+                <p>Ultima Actualizacion: <span>{{ cotizacion.LASTUPDATE }}</span></p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+  

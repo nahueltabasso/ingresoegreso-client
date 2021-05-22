@@ -18,6 +18,7 @@ export class ConsultarCriptomonedaComponent implements OnInit {
   cryptoList: any[] = [];
   cotizacion: any;
   loading: boolean = false;
+  mostrarResultados: boolean = false;
 
   constructor(private webService: WebService,
               private fb: FormBuilder,
@@ -52,6 +53,7 @@ export class ConsultarCriptomonedaComponent implements OnInit {
       this.loading = data.isLoading;
     });
     this.webService.getCotizacionCrytomoneda(this.cryptomoneda, this.moneda).subscribe(data => {
+      this.mostrarResultados = true;
       this.cotizacion = data.DISPLAY[this.cryptomoneda][this.moneda];
       this.store.dispatch(ui.stopLoading());
       this.store.select('ui').subscribe(data => {
@@ -60,4 +62,9 @@ export class ConsultarCriptomonedaComponent implements OnInit {
     });
   }
 
+  public cleanFilter() {
+    this.formulario.reset();
+    this.mostrarResultados = false;
+    this.ngOnInit();
+  }
 }
