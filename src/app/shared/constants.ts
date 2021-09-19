@@ -19,6 +19,7 @@ export const CODIGO_VERIFICACION_LENGTH = 8;
 
 export const DOLAR_OFICIAL = 'OFICIAL';
 export const DOLAR_LIBRE = 'LIBRE';
+export const DOLAR_MEP = 'MEP';
 
 export const MESES_ANIO: Mes[] = [
     {nroMes: 1,mes: 'ENERO'},

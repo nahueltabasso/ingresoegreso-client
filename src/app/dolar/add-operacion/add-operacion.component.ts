@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { CompraDolar, DolarCotizacion } from 'src/app/models/dolar.models';
 import { DolarService } from 'src/app/services/dolar.service';
-import { DOLAR_LIBRE, DOLAR_OFICIAL, PATTERN_ONLYNUMBER } from 'src/app/shared/constants';
+import { DOLAR_LIBRE, DOLAR_MEP, DOLAR_OFICIAL, PATTERN_ONLYNUMBER } from 'src/app/shared/constants';
 import Swal from 'sweetalert2';
 import * as ui from '../../shared/ui.actions';
 import * as dolarActions from '../../dolar/dolar.actions';
@@ -58,11 +58,15 @@ export class AddOperacionComponent implements OnInit {
   }
 
   public seleccionarTipoDolar(event) {
-    console.log(event)
-    if (event === 'Otro') {
+    if (event === 'Otro'  || event === 'mep') {
       this.formulario.controls['valorDolarPeso'].enable();
       this.formulario.controls['valorDolarPeso'].setValue(0);
       this.mostrarValorDolarPeso = true;
+      if (event === 'mep') {
+        this.operacion.tipo = DOLAR_MEP;
+        return ;
+      }
+      // Si no es dolar mep es otro dolar por lo cual el tipo de dolar es el dolar libre por regla de negocio
       this.operacion.tipo = DOLAR_LIBRE;
       return ;
     }
