@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  based_endpoint: 'https://ingresoegreso.herokuapp.com/api'
 };

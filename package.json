@@ -24,6 +24,7 @@
     "@angular/router": "~9.0.1",
     "@ngrx/store": "^10.0.1",
     "@ngrx/store-devtools": "^10.0.1",
+    "angular-cli-ghpages": "^1.0.0",
     "chart.js": "^2.9.4",
     "ng-recaptcha": "^7.0.0",
     "ng2-charts": "^2.4.2",
