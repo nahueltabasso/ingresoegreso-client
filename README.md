@@ -54,4 +54,5 @@ Ejecutar `ng build` para construir el proyecto. Este comando generara una carpet
 * Boostrap 4
 * Prettier - Code Formatter
 
+## PROBAR LA APLICACION
 [Aplicacion](https://nahueltabasso.github.io/ingresoegreso-client/login)
