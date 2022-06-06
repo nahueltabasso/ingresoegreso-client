@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { count } from 'rxjs/operators';
+import { HistoricoIngresoEgreso } from '../models/historicoIngresoEgreso.models';
 import { IngresoEgreso, IngresoEgresoFilterDTO } from '../models/ingresoegreso.models';
-import { addItem, setCount, setFiltros, setItems, setItemsByFiltros, unSetFiltros, unSetItems } from './ingreso-egreso.actions';
+import { addItem, setCount, setFiltros, setItems, setItemsByFiltros, unSetFiltros, unSetItems, setHistorico } from './ingreso-egreso.actions';
 
 export interface State {
     items: IngresoEgreso[];
     itemsByFiltros: IngresoEgreso[];
+    historico: HistoricoIngresoEgreso;
     filtrosActuales: IngresoEgresoFilterDTO;
     count: number; 
 }
@@ -13,6 +14,7 @@ export interface State {
 export const initialState: State = {
    items: [],
    itemsByFiltros: [],
+   historico: null,
    filtrosActuales: null,
    count: 0,
 }
@@ -32,6 +34,7 @@ const _ingresoEgresoReducer = createReducer(initialState,
         ...state,
         count: state.count + 1
     })),
+    on(setHistorico, (state, { historicoDTO }) => ({ ...state, historico: historicoDTO }))
 );
 
 export function ingresoEgresoReducer(state, action) {

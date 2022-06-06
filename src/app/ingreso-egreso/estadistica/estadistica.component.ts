@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { IngresoEgreso } from 'src/app/models/ingresoegreso.models';
-import { ChartType } from 'chart.js';
 import { MultiDataSet, Label } from 'ng2-charts';
+import { HistoricoIngresoEgreso } from 'src/app/models/historicoIngresoEgreso.models';
 
 @Component({
   selector: 'app-estadistica',
@@ -16,6 +16,7 @@ export class EstadisticaComponent implements OnInit {
   egresos: number = 0;
   totalIngresos: number = 0;
   totalEgresos: number = 0;
+  historico: HistoricoIngresoEgreso = new HistoricoIngresoEgreso();
 
   // Doughnut
   public doughnutChartLabels: Label[] = ['Ingresos', 'Egresos'];
@@ -25,15 +26,18 @@ export class EstadisticaComponent implements OnInit {
 
   ngOnInit() {
     this.store.select('ingresoEgresos').subscribe(data => {
-      this.generarEstadistica(data.items);
+      this.historico = data.historico;
+      setTimeout(() => {
+        this.generarEstadistica(data.items);        
+      }, 4000);
     });
   }
 
   public generarEstadistica(items: IngresoEgreso[]) {
-    this.ingresos = 0;
-    this.egresos = 0;
-    this.totalEgresos = 0;
-    this.totalIngresos = 0;
+    this.ingresos = this.historico.itemsTotalIngreso;
+    this.egresos = this.historico.itemsTotalEgreso;
+    this.totalEgresos = this.historico.montoTotalEgreso;
+    this.totalIngresos = this.historico.montoTotalIngreso;
 
     for (const item of items) {
       if (item.tipo === 'INGRESO') {

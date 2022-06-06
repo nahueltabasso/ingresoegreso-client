@@ -8,6 +8,7 @@ import  * as ingresoEgresoActions from '../ingreso-egreso/ingreso-egreso.actions
 import { DolarService } from '../services/dolar.service';
 import { CompraDolar, DolarCotizacion } from '../models/dolar.models';
 import * as dolarActions from '../dolar/dolar.actions';
+import { HistoricoService } from '../services/historico.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,10 +22,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   operacionesSub: Subscription;
   dolarList: DolarCotizacion[] = [];
   operaciones: CompraDolar[] = [];
+  historicoSub: Subscription;
   
   constructor(private store: Store<AppState>,
               private ingresoEgresoService: IngresoEgresoService,
-              private dolarService: DolarService) { }
+              private dolarService: DolarService,
+              private historicoService: HistoricoService) { }
 
   ngOnInit() {
     this.userSubs = this.store.select('user')
@@ -50,6 +53,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   
     this.operacionesSub = this.dolarService.listarOperaciones().subscribe(data => {
       this.store.dispatch(dolarActions.setOperaciones({ operaciones: data }));
+    });
+
+    this.historicoSub = this.historicoService.getHistorico().subscribe(data => {
+      this.store.dispatch(ingresoEgresoActions.setHistorico({ historicoDTO: data }));
     });
   }
 

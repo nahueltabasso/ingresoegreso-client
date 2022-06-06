@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { HistoricoIngresoEgreso } from '../models/historicoIngresoEgreso.models';
 import { IngresoEgreso, IngresoEgresoFilterDTO } from '../models/ingresoegreso.models';
 
 export const setItems = createAction(
@@ -28,3 +29,8 @@ export const setItemsByFiltros = createAction(
 export const unSetItemsByFiltros = createAction('[INGRESO_EGRESO] Un Set Items Filtrados');
 
 export const setCount = createAction('[INGRESO_EGRESO] Set Count Busquedas Items');
+
+export const setHistorico = createAction(
+    '[HISTORICO] Set Historico',
+    props<{ historicoDTO: HistoricoIngresoEgreso }>()
+);
