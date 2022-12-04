@@ -1,70 +1,64 @@
 <div class="container">
     <div class="col-sm-12 col-md-12">
-      <mat-accordion class="example-headers-align" multi>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>search</mat-icon>
-              <strong>Filtros</strong>
-            </mat-panel-title>
-            <mat-panel-description>
-              Busqueda de operaciones Ingresos-Egresos personalizada
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-            <div class="form-horizontal col-sm-12 col-md-12">
-              <form class="form-group" [formGroup]="formulario">
-                <div class="container-12">
-                  <div class="row">
-                    <div class="col">
-                        <mat-form-field>
-                            <mat-label>Cryptomoneda</mat-label>
-                            <mat-select name="crytomoneda" id="crytomoneda"
-                                        [placeholder]="'Cryptomoneda'"
-                                        formControlName="crytomoneda"
-                                        (selectionChange)="seleccionarCryptomoneda($event.value)">
-                                <mat-option *ngFor="let c of cryptoList" [value]="c">{{ c.CoinInfo.FullName }}</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formulario.get('crytomoneda').hasError('required')">
-                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                            </mat-error>  
-                        </mat-form-field>
-                    </div>
-    
-                    <div class="col">
-                        <mat-form-field>
-                            <mat-label>Moneda</mat-label>
-                            <mat-select name="moneda" id="moneda"
-                                        [placeholder]="'Moneda'"
-                                        formControlName="moneda"
-                                        (selectionChange)="seleccionarMoneda($event.value)">
-                                <mat-option value="USD">Dolar Americano</mat-option>
-                                <mat-option value="GBP">Libras</mat-option>
-                                <mat-option value="EUR">Euro</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formulario.get('moneda').hasError('required')">
-                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                            </mat-error>  
-                        </mat-form-field>
-                    </div>
-                  </div>
-  
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" *ngIf="!loading" class="btn btn-success float-right mx-2" (click)="consultarCotizacionCryptomoneda()" [disabled]="formulario.invalid">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>search</mat-icon>
+                        <strong>Filtros</strong>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Busqueda personalizada de valor de Criptomoneda
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="form-horizontal col-sm-12 col-md-12">
+                    <form class="form-group" [formGroup]="formulario">
+                        <div class="container-12">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Cryptomoneda</mat-label>
+                                        <mat-select name="crytomoneda" id="crytomoneda" [placeholder]="'Cryptomoneda'" formControlName="crytomoneda" (selectionChange)="seleccionarCryptomoneda($event.value)">
+                                            <mat-option *ngFor="let c of cryptoList" [value]="c">{{ c.CoinInfo.FullName }}</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="formulario.get('crytomoneda').hasError('required')">
+                                            <label style="font-weight: normal; font-size: 12px" class="error">Campo Requerido</label>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Moneda</mat-label>
+                                        <mat-select name="moneda" id="moneda" [placeholder]="'Moneda'" formControlName="moneda" (selectionChange)="seleccionarMoneda($event.value)">
+                                            <mat-option value="USD">Dolar Americano</mat-option>
+                                            <mat-option value="GBP">Libras</mat-option>
+                                            <mat-option value="EUR">Euro</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="formulario.get('moneda').hasError('required')">
+                                            <label style="font-weight: normal; font-size: 12px" class="error">Campo Requerido</label>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <button type="button" *ngIf="!loading" class="btn btn-success float-right mx-2" (click)="consultarCotizacionCryptomoneda()" [disabled]="formulario.invalid">
                       <i class="fa fa-search-plus"></i>
                       Buscar
-                    </button> 
-  
-                    <button type="button" class="btn btn-secondary float-right mx-2" (click)="cleanFilter()">
+                    </button>
+
+                                <button type="button" class="btn btn-secondary float-right mx-2" (click)="cleanFilter()">
                       <i class="fa fa-reply"></i>
                       Limpiar
                     </button>
-                  </div>
-    
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-              </form>
-            </div>
-        </mat-expansion-panel>
-      </mat-accordion>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </div>
 
@@ -72,17 +66,16 @@
 <div class="container my-4" *ngIf="mostrarResultados">
     <div class="col-sm-12 col-md-12">
         <div class="card">
-          <div class="card-body">
-            <h1 class="card-title text-center"><b>Valores - {{ cryptomoneda }}</b></h1>
-            <div>
-                <p class="precio">El precio es <span>{{ cotizacion.PRICE }}</span></p>
-                <p>Precio mas alto del dia: <span>{{ cotizacion.HIGHDAY }}</span></p>
-                <p>Precio mas bajo del dia: <span>{{ cotizacion.LOWDAY }}</span></p>
-                <p>Variacion ultimas 24 horas: <span>{{ cotizacion.CHANGEPCT24HOUR }}</span></p>
-                <p>Ultima Actualizacion: <span>{{ cotizacion.LASTUPDATE }}</span></p>
+            <div class="card-body">
+                <h1 class="card-title text-center"><b>Valores - {{ cryptomoneda }}</b></h1>
+                <div>
+                    <p class="precio">El precio es <span>{{ cotizacion.PRICE }}</span></p>
+                    <p>Precio mas alto del dia: <span>{{ cotizacion.HIGHDAY }}</span></p>
+                    <p>Precio mas bajo del dia: <span>{{ cotizacion.LOWDAY }}</span></p>
+                    <p>Variacion ultimas 24 horas: <span>{{ cotizacion.CHANGEPCT24HOUR }}</span></p>
+                    <p>Ultima Actualizacion: <span>{{ cotizacion.LASTUPDATE }}</span></p>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 </div>
-  

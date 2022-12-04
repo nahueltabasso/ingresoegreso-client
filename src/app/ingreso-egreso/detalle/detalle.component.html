@@ -1,140 +1,141 @@
 <div class="container">
-  <div class="col-sm-12 col-md-12">
-    <mat-accordion class="example-headers-align" multi>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>search</mat-icon>
-            <strong>Filtros</strong>
-          </mat-panel-title>
-          <mat-panel-description>
-            Busqueda de operaciones Ingresos-Egresos personalizada
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-          <div class="form-horizontal col-sm-12 col-md-12">
-            <form class="form-group" [formGroup]="formulario">
-              <div class="container-12">
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                        <mat-label>Tipo</mat-label>
-                        <mat-select name="tipo" id="tipo"
-                                    [placeholder]="'Tipo'"
-                                    formControlName="tipo"
-                                    (selectionChange)="selectTipo($event.value)">
-                            <mat-option value="INGRESO">INGRESO</mat-option>
-                            <mat-option value="EGRESO">EGRESO</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                  </div>
-  
-                  <div class="col">
-                    <mat-form-field>
-                        <mat-label>AÑO</mat-label>
-                        <mat-select name="anio" id="anio"
-                                    [placeholder]="'Año'"
-                                    (selectionChange)="selectAnio($event.value)">
-                          <mat-option *ngFor="let anio of aniosArray" [value]="anio">{{ anio }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                  </div>
+    <div class="col-sm-12 col-md-12">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>search</mat-icon>
+                        <strong>Filtros</strong>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Busqueda de operaciones Ingresos-Egresos personalizada
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="form-horizontal col-sm-12 col-md-12">
+                    <form class="form-group" [formGroup]="formulario">
+                        <div class="container-12">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Tipo</mat-label>
+                                        <mat-select name="tipo" id="tipo" [placeholder]="'Tipo'" formControlName="tipo" (selectionChange)="selectTipo($event.value)">
+                                            <mat-option value="INGRESO">INGRESO</mat-option>
+                                            <mat-option value="EGRESO">EGRESO</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
 
-                  <div class="col">
-                    <mat-form-field>
-                      <mat-label>Mes</mat-label>
-                      <mat-select name="mes" id="mes" 
-                                  formControlName="mes"
-                                  (selectionChange)="selectMes($event.value)">
-                          <mat-option *ngFor="let mes of mesesAnio" [value]="mes.nroMes">{{ mes.mes }}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>AÑO</mat-label>
+                                        <mat-select name="anio" id="anio" [placeholder]="'Año'" (selectionChange)="selectAnio($event.value)">
+                                            <mat-option *ngFor="let anio of aniosArray" [value]="anio">{{ anio }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
 
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <button type="button" *ngIf="!loading" class="btn btn-success float-right mx-2" (click)="search()" [disabled]="formulario.invalid">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <mat-label>Mes</mat-label>
+                                        <mat-select name="mes" id="mes" formControlName="mes" (selectionChange)="selectMes($event.value)">
+                                            <mat-option *ngFor="let mes of mesesAnio" [value]="mes.nroMes">{{ mes.mes }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <button type="button" *ngIf="!loading" class="btn btn-success float-right mx-2" (click)="search()" [disabled]="formulario.invalid">
                     <i class="fa fa-search-plus"></i>
                     Buscar
-                  </button> 
+                  </button>
 
-                  <button disabled *ngIf="loading" class="btn btn-success mr-2" [disabled]="true">
+                                <button disabled *ngIf="loading" class="btn btn-success mr-2" [disabled]="true">
                     <i class="fa fa-spin fa-sync"></i>
                     Buscando...
-                  </button> 
-               
-                  <button type="button" class="btn btn-secondary float-right mx-2" (click)="cleanFilter()">
+                  </button>
+
+                                <button type="button" class="btn btn-secondary float-right mx-2" (click)="cleanFilter()">
                     <i class="fa fa-reply"></i>
                     Limpiar
                   </button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-  
-              </div>
-            </form>
-          </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>
 
-<div class="container my-4">
-  <div class="col-sm-12 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Detalle de ingreso egreso</h4>
+<div class="container my-4" *ngIf="this.ingresosEgresos.length == 0">
+    <div class="col-sm-12 col-md-12">
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-info"></i> Atencion!</h5>
+            No hay operaciones de Ingresos y Egresos registradas!
+        </div>
+    </div>
+</div>
 
-          <table mat-table [dataSource]="dataSource" class="table" style="width: 100%; margin: 0rem!important;">
+<div class="container my-4" *ngIf="this.ingresosEgresos.length > 0">
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Detalle de ingreso egreso</h4>
 
-            <ng-container matColumnDef="fecha">
-              <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Fecha</strong></th>
-              <td mat-cell *matCellDef="let item"> {{ item.createAt | date: 'dd/MM/yyyy' }} </td>
-            </ng-container>
+                <table mat-table [dataSource]="dataSource" class="table" style="width: 100%; margin: 0rem!important;">
 
-            <ng-container matColumnDef="descripcion">
-              <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Descripción</strong></th>
-              <td mat-cell *matCellDef="let item"> {{ item.descripcion }} </td>
-            </ng-container>
+                    <ng-container matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Fecha</strong></th>
+                        <td mat-cell *matCellDef="let item"> {{ item.createAt | date: 'dd/MM/yyyy' }} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="monto">
-              <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Monto</strong></th>
-              <td mat-cell *matCellDef="let item"> {{ item.monto | currency }} </td>
-            </ng-container>
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Descripción</strong></th>
+                        <td mat-cell *matCellDef="let item"> {{ item.descripcion }} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="tipo">
-              <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo</strong></th>
-              <td mat-cell *matCellDef="let item" [class.text-success]="item.tipo === 'INGRESO'"
-                                                  [class.text-danger]="item.tipo === 'EGRESO'">
-                {{ item.tipo }}
-              </td>
-            </ng-container>
+                    <ng-container matColumnDef="monto">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Monto</strong></th>
+                        <td mat-cell *matCellDef="let item"> {{ item.monto | currency }} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Acciones</strong></th>
-              <td mat-cell *matCellDef="let item">
-                <button type="button" class="btn btn-danger" (click)="eliminarItem(item)">
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Tipo</strong></th>
+                        <td mat-cell *matCellDef="let item" [class.text-success]="item.tipo === 'INGRESO'" [class.text-danger]="item.tipo === 'EGRESO'">
+                            {{ item.tipo }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef style="padding: 10px;"><strong>Acciones</strong></th>
+                        <td mat-cell *matCellDef="let item">
+                            <button type="button" class="btn btn-danger" (click)="eliminarItem(item)">
                   <i class="fa fa-trash"></i>
                   Borrar
                 </button>
-              </td>
-            </ng-container>
+                        </td>
+                    </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let examen; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let examen; columns: displayedColumns;"></tr>
 
-          </table>
+                </table>
 
-          <!-- <mat-paginator [length]="totalRegistros"
+                <!-- <mat-paginator [length]="totalRegistros"
                           [pageSize]="totalPorPagina"
                           [pageIndex]="paginaActual"
                           [pageSizeOptions]="[5, 10, 15]"
                           (page)="paginar($event)" showFirstLastButtons>
           </mat-paginator> -->
 
-          <mat-paginator class="my-2" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons
-                          class="float-left mx-2">
-          </mat-paginator>
+                <mat-paginator class="my-2" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons class="float-left mx-2">
+                </mat-paginator>
 
+            </div>
         </div>
-      </div>
-  </div>
-  
+    </div>
+
 </div>
