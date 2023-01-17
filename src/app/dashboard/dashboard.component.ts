@@ -9,6 +9,7 @@ import { DolarService } from '../services/dolar.service';
 import { CompraDolar, DolarCotizacion } from '../models/dolar.models';
 import * as dolarActions from '../dolar/dolar.actions';
 import { HistoricoService } from '../services/historico.service';
+import { DOLAR_OFICIAL_KEY, DOLAR_LIBRE_KEY } from '../shared/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,14 +41,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
       });
 
-    this.dolarService.getDolarLibre().subscribe(dolarOficial => {
+    this.dolarService.getCotizacionByTipoDolar(DOLAR_OFICIAL_KEY).subscribe(dolarOficial => {
       this.dolarList.push(dolarOficial);
-      this.dolarService.getDolarLibre().subscribe(dolarLibre => {
+      this.dolarService.getCotizacionByTipoDolar(DOLAR_LIBRE_KEY).subscribe(dolarLibre => {
         this.dolarList.push(dolarLibre);
-        this.dolarService.getDolarBcoSantander().subscribe(dolarBcoSantander => {
-          this.dolarList.push(dolarBcoSantander);
-          this.store.dispatch(dolarActions.setTiposDolar({ dolarList : this.dolarList }));
-        });
+        this.store.dispatch(dolarActions.setTiposDolar({ dolarList : this.dolarList }));
       });
     });  
   

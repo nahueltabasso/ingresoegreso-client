@@ -1,9 +1,13 @@
 import { UsuarioDTO } from './usuario.models';
 
 export class DolarCotizacion {
-    fecha: string;
     compra: string;
     venta: string;
+    agencia: string;
+    nombre: string;
+    variacion: string;
+    ventaCero: string;
+    decimales: string;
     origen: string;
 }
 

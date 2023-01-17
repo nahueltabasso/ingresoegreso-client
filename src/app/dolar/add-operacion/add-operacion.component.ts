@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import * as ui from '../../shared/ui.actions';
 import * as dolarActions from '../../dolar/dolar.actions';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DOLAR_LIBRE_KEY, DOLAR_OFICIAL_KEY } from '../../shared/constants';
 
 @Component({
   selector: 'app-add-operacion',
@@ -71,13 +72,17 @@ export class AddOperacionComponent implements OnInit {
       return ;
     }
 
+    let tipoDolarAux = null;
     if (event === 'dolarblue') {
       this.operacion.tipo = DOLAR_LIBRE;
+      tipoDolarAux = DOLAR_LIBRE_KEY;
     } else {
       this.operacion.tipo = DOLAR_OFICIAL;
+      tipoDolarAux = DOLAR_OFICIAL_KEY;
     }
 
-    this.dolarService.getTipoDolar(event).subscribe(data => {
+    this.dolarService.getCotizacionByTipoDolar(tipoDolarAux).subscribe(data => {
+      console.log(data);
       this.dolarCotizacion = data;
       if (this.operacion.tipoOperacion === 'INGRESO') {
         this.formulario.controls['valorDolarPeso'].setValue(this.dolarCotizacion.venta);

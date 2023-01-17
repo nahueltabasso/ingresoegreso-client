@@ -9,17 +9,21 @@ import { CompraDolar, CompraDolarFilterDTO, DolarCotizacion } from '../models/do
 })
 export class DolarService {
 
-  endpoint = environment.based_endpoint + '/dolar';
+  endpoint = environment.based_endpoint + '/dolar/cotizacion';
   endpointOperaciones = environment.based_endpoint + '/compradolar';
 
   constructor(private http: HttpClient) { }
 
+  getCotizacionByTipoDolar(tipoDolar: String): Observable<DolarCotizacion> {
+    return this.http.get<DolarCotizacion>(this.endpoint + '/' + tipoDolar);
+  }
+
   getDolarOficial(): Observable<DolarCotizacion> {
-    return this.http.get<DolarCotizacion>(this.endpoint + '/dolaroficial');
+    return this.http.get<DolarCotizacion>(this.endpoint + '/cotizacion/Dolar Oficial');
   }
 
   getDolarLibre(): Observable<DolarCotizacion> {
-    return this.http.get<DolarCotizacion>(this.endpoint + '/dolarblue');
+    return this.http.get<DolarCotizacion>(this.endpoint + '/cotizacion/Dolar Blue');
   }
 
   getDolarBcoSantander(): Observable<DolarCotizacion> {
