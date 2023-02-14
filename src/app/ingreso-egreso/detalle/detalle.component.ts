@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -21,6 +21,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
 
   ingresosEgresos: IngresoEgreso[] = [];
   dataSource: MatTableDataSource<IngresoEgreso>;
+  paginator: MatPaginator;
   itemsSubs: Subscription;
   totalRegistros = 0;
   paginaActual = 0;
@@ -33,7 +34,11 @@ export class DetalleComponent implements OnInit, OnDestroy {
   aniosArray: number[] = [];
   loading: boolean = false;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator,  {static: false}) set matPaginator(mp: MatPaginator) {
+    this.dataSource.paginator = mp;
+    this.paginator = mp;
+    this.paginator._intl.itemsPerPageLabel = LABEL_PAGINADOR;
+  }
 
   constructor(private store: Store<AppState>,
               private ingresoEgresoService: IngresoEgresoService,
@@ -79,8 +84,6 @@ export class DetalleComponent implements OnInit, OnDestroy {
 
   public iniciarPaginador() {
     this.dataSource = new MatTableDataSource<IngresoEgreso>(this.ingresosEgresos);
-    this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = LABEL_PAGINADOR;
   }
 
   public paginar(event: PageEvent): void {
