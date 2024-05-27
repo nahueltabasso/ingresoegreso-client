@@ -21,8 +21,8 @@ export const DOLAR_OFICIAL = 'OFICIAL';
 export const DOLAR_LIBRE = 'LIBRE';
 export const DOLAR_MEP = 'MEP';
 
-export const DOLAR_OFICIAL_KEY = "Dolar Oficial";
-export const DOLAR_LIBRE_KEY = "Dolar Blue";
+export const DOLAR_OFICIAL_KEY = "oficial";
+export const DOLAR_LIBRE_KEY = "blue";
 
 export const MESES_ANIO: Mes[] = [
     {nroMes: 1,mes: 'ENERO'},
